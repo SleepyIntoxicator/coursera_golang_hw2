@@ -1,4 +1,4 @@
-package main
+package messageBroker
 
 import (
 	"errors"
@@ -19,7 +19,7 @@ type MessageBroker struct {
 	subsList sync.Map
 }
 
-func NewMessageBroker() *MessageBroker {
+func NewMessageBroker() IMessageBroker {
 	return &MessageBroker{}
 }
 

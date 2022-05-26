@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"hw2Signer/pkg/messageBroker"
 	"log"
 	"math/rand"
 	"sort"
@@ -17,7 +18,7 @@ type handler func(input interface{}, mu *sync.Mutex) string
 
 const (
 	isDebug  = false
-	useCache = false
+	useCache = true
 )
 
 // runDistributedInputHandler goes through each value received in the input channel and
@@ -29,7 +30,7 @@ func runDistributedInputHandler(in, out chan interface{}, handler handler) {
 	mu := sync.Mutex{}
 	wg := sync.WaitGroup{}
 
-	MBroker := NewMessageBroker()
+	MBroker := messageBroker.NewMessageBroker()
 
 	for input := range in {
 
@@ -233,5 +234,5 @@ func MyTest() {
 	ExecutePipeline(jobs...)
 	end := time.Since(start)
 
-	fmt.Printf("execition time\nGot: %s\nExpected: <%s\n", end, time.Second*7)
+	fmt.Printf("execition time\nGot: %s\nExpected: <%s\n", end, time.Second*10)
 }
